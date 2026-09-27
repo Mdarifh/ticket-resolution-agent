@@ -1,0 +1,17 @@
+{
+  "reports": [
+    {
+      "finding_id": "RC-1",
+      "title": "Password reset confirm does not reject an already-used reset token",
+      "summary": "Confirming a password reset with a token that was already used did not return 400 token_used. This likely lets anyone holding an old reset link change the password again; the cause is unconfirmed (possibly a regression of BUG-1042).",
+      "severity": "high",
+      "severity_rationale": "Reusable reset links allow account takeover, a security impact on a core flow.",
+      "priority": "p1",
+      "priority_rationale": "Security issue in a live flow; fix in the next release after confirming the cause.",
+      "related_bugs": [
+        "previous_bugs/BUG-1042-reset-token-reusable.md",
+        "previous_bugs/BUG-9999-not-a-real-bug.md"
+      ]
+    }
+  ]
+}

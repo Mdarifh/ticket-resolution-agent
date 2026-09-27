@@ -1,0 +1,13 @@
+{
+  "strategy": "Run API checks first, then browser journeys; email delivery is verified manually.",
+  "decisions": [
+    {"test_case_id": "TC-001", "automation_type": "api", "rationale": "Request and response are fully checkable over HTTP."},
+    {"test_case_id": "TC-002", "automation_type": "ui", "rationale": "End-to-end browser journey through the reset form and login."},
+    {"test_case_id": "TC-003", "automation_type": "manual", "rationale": "Needs a real inbox that the test script cannot control."},
+    {"test_case_id": "TC-004", "automation_type": "api", "rationale": "Response comparison is an HTTP-level check."},
+    {"test_case_id": "TC-005", "automation_type": "ui", "rationale": "The steps exercise client-side form validation in the browser."},
+    {"test_case_id": "TC-006", "automation_type": "api", "rationale": "Token expiry is enforced by the confirm endpoint."},
+    {"test_case_id": "TC-007", "automation_type": "api", "rationale": "Single-use enforcement is visible in the confirm endpoint response."},
+    {"test_case_id": "TC-008", "automation_type": "api", "rationale": "Case handling is checkable through the request endpoint."}
+  ]
+}

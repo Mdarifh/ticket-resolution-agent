@@ -1,0 +1,31 @@
+{
+  "scripts": [
+    {
+      "test_case_id": "TC-002",
+      "steps": [
+        {"action": "navigate", "target": "/reset-password.html?token=valid-token-123", "value": null, "description": "Open the reset link"},
+        {"action": "fill", "target": "data-testid=new-password", "value": "N3w-Passw0rd!", "description": "Enter the new password"},
+        {"action": "fill", "target": "data-testid=confirm-password", "value": "N3w-Passw0rd!", "description": "Confirm the new password"},
+        {"action": "click", "target": "data-testid=reset-submit", "value": null, "description": "Submit the form"},
+        {"action": "verify_text", "target": "data-testid=reset-success", "value": "Your password has been reset.", "description": "Success message is shown"},
+        {"action": "click", "target": "data-testid=link-login-after-reset", "value": null, "description": "Go to log in"},
+        {"action": "fill", "target": "data-testid=login-email", "value": "registered.user@example.com", "description": "Enter email"},
+        {"action": "fill", "target": "data-testid=login-password", "value": "N3w-Passw0rd!", "description": "Enter the new password"},
+        {"action": "click", "target": "data-testid=login-submit", "value": null, "description": "Log in"},
+        {"action": "verify_text", "target": "data-testid=login-message", "value": "Welcome back!", "description": "Login with the new password succeeds"}
+      ],
+      "skip_reason": null
+    },
+    {
+      "test_case_id": "TC-005",
+      "steps": [
+        {"action": "navigate", "target": "/forgot-password.html", "value": null, "description": "Open the forgot password page"},
+        {"action": "fill", "target": "data-testid=email-input", "value": "not-an-email", "description": "Enter a malformed email"},
+        {"action": "click", "target": "data-testid=send-reset-link", "value": null, "description": "Submit"},
+        {"action": "verify_visible", "target": "data-testid=email-error", "value": null, "description": "Validation error is visible"},
+        {"action": "verify_text", "target": "data-testid=email-error", "value": "Please enter a valid email address.", "description": "Validation message text"}
+      ],
+      "skip_reason": null
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "name": "Password reset",
+  "description": "Positive, negative and edge-case coverage for resetting a password via registered email.",
+  "test_cases": [
+    {
+      "test_case_id": "RESET-POS-1",
+      "title": "Reset request with registered email is accepted",
+      "description": "Submitting a registered email starts the reset flow.",
+      "preconditions": [
+        "Account exists for registered.user@example.com"
+      ],
+      "test_data": [
+        {
+          "name": "email",
+          "value": "registered.user@example.com"
+        }
+      ],
+      "steps": [
+        "POST /password-reset with the registered email",
+        "Inspect the response"
+      ],
+      "expected_result": "Response is 202 with a generic confirmation message",
+      "priority": "high",
+      "test_type": "positive",
+      "automation_type": "api"
+    },
+    {
+      "test_case_id": "RESET-POS-2",
+      "title": "User sets a new password through a valid reset link and logs in",
+      "description": "End-to-end journey from reset link to logging in with the new password.",
+      "preconditions": [
+        "A valid, unused reset link exists for registered.user@example.com"
+      ],
+      "test_data": [
+        {
+          "name": "email",
+          "value": "registered.user@example.com"
+        },
+        {
+          "name": "new_password",
+          "value": "N3w-Passw0rd!"
+        }
+      ],
+      "steps": [
+        "Open the reset link in the browser",
+        "Enter the new password and confirm it",
+        "Submit the form",
+        "Log in with the new password"
+      ],
+      "expected_result": "Password is updated and login with the new password succeeds",
+      "priority": "high",
+      "test_type": "positive",
+      "automation_type": "ui"
+    },
+    {
+      "test_case_id": "RESET-POS-3",
+      "title": "Reset email arrives in the registered inbox with a working link",
+      "description": "Confirms the email is actually delivered and readable.",
+      "preconditions": [
+        "Tester has access to the registered.user@example.com inbox"
+      ],
+      "test_data": [
+        {
+          "name": "email",
+          "value": "registered.user@example.com"
+        }
+      ],
+      "steps": [
+        "Request a password reset",
+        "Open the inbox",
+        "Open the reset email and click the link"
+      ],
+      "expected_result": "Email is received and the link opens the reset page",
+      "priority": "medium",
+      "test_type": "positive",
+      "automation_type": "manual"
+    },
+    {
+      "test_case_id": "RESET-NEG-1",
+      "title": "Unregistered email gets the same generic response",
+      "description": "Guards against account enumeration.",
+      "preconditions": [
+        "No account exists for nobody@example.com"
+      ],
+      "test_data": [
+        {
+          "name": "email",
+          "value": "nobody@example.com"
+        }
+      ],
+      "steps": [
+        "POST /password-reset with the unregistered email",
+        "Compare with the registered-email response"
+      ],
+      "expected_result": "Response status and message match the registered-email response; no email is sent",
+      "priority": "high",
+      "test_type": "negative",
+      "automation_type": "api"
+    },
+    {
+      "test_case_id": "RESET-NEG-2",
+      "title": "Malformed email address is rejected",
+      "description": "Input validation on the reset request form.",
+      "preconditions": [],
+      "test_data": [
+        {
+          "name": "email",
+          "value": "not-an-email"
+        }
+      ],
+      "steps": [
+        "Open the forgot-password page",
+        "Enter the malformed email",
+        "Submit"
+      ],
+      "expected_result": "A validation error is shown and no request is sent",
+      "priority": "medium",
+      "test_type": "negative",
+      "automation_type": "api"
+    },
+    {
+      "test_case_id": "RESET-EDGE-1",
+      "title": "Expired reset link is rejected",
+      "description": "Depends on the unspecified expiry duration; uses a token past the configured expiry.",
+      "preconditions": [
+        "A reset token exists that is past its expiry time"
+      ],
+      "test_data": [
+        {
+          "name": "reset_token",
+          "value": "expired-token-123"
+        }
+      ],
+      "steps": [
+        "POST /password-reset/confirm with the expired token and a new password"
+      ],
+      "expected_result": "Response is 400 with an 'expired link' error and the password is unchanged",
+      "priority": "medium",
+      "test_type": "edge_case",
+      "automation_type": "api"
+    },
+    {
+      "test_case_id": "RESET-EDGE-2",
+      "title": "Reset link cannot be used twice",
+      "description": "Enforces the single-use rule.",
+      "preconditions": [
+        "A reset token has already been used successfully"
+      ],
+      "test_data": [
+        {
+          "name": "reset_token",
+          "value": "used-token-456"
+        }
+      ],
+      "steps": [
+        "POST /password-reset/confirm with the used token and another new password"
+      ],
+      "expected_result": "Response is 400 and the password from the first reset still works",
+      "priority": "medium",
+      "test_type": "edge_case",
+      "automation_type": "api"
+    },
+    {
+      "test_case_id": "RESET-EDGE-3",
+      "title": "Email lookup is case-insensitive",
+      "description": "Mixed-case input for a registered email should behave like the canonical email.",
+      "preconditions": [
+        "Account exists for registered.user@example.com"
+      ],
+      "test_data": [
+        {
+          "name": "email",
+          "value": "Registered.User@Example.COM"
+        }
+      ],
+      "steps": [
+        "POST /password-reset with the mixed-case email"
+      ],
+      "expected_result": "Response is 202 and a reset email is issued for the account",
+      "priority": "low",
+      "test_type": "edge_case",
+      "automation_type": "api"
+    }
+  ],
+  "knowledge_sources": [
+    "api_docs/auth-password-reset-api.md",
+    "previous_bugs/BUG-1188-reset-email-case-sensitive.md"
+  ]
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Shop - Log in</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="brand" href="./"><span class="brand-mark">D</span>Demo Shop</a>
+  <main>
+    <h1 data-testid="page-title">Log in</h1>
+    <p class="muted">Welcome to Demo Shop. Sign in to your account.</p>
+    <p id="login-notice" class="notice" data-testid="login-notice" role="status" hidden></p>
+    <form id="login-form" data-testid="login-form" novalidate>
+      <label for="login-email">Email address</label>
+      <input id="login-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" data-testid="login-email">
+      <label for="login-password">Password</label>
+      <input id="login-password" name="password" type="password" autocomplete="current-password" data-testid="login-password">
+      <button type="submit" data-testid="login-submit">Log in</button>
+    </form>
+    <p id="login-message" data-testid="login-message" role="status" hidden></p>
+    <div class="links">
+      <a href="forgot-password.html" data-testid="link-forgot-password">Forgot password?</a>
+      <a href="signup.html" data-testid="link-signup">Create an account</a>
+    </div>
+    <div class="demo-box">Demo account: <code>registered.user@example.com</code> / <code>N3w-Passw0rd!</code></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

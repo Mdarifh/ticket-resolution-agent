@@ -1,0 +1,11 @@
+[theme]
+primaryColor = "#3b82c4"
+
+[server]
+headless = true
+
+[browser]
+gatherUsageStats = false
+
+[client]
+toolbarMode = "viewer"

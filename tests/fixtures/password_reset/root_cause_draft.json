@@ -1,0 +1,54 @@
+{
+  "summary": "The password reset confirm endpoint accepted a token that should already be used; a regression of single-use enforcement is the most likely explanation.",
+  "findings": [
+    {
+      "test_case_ids": ["TC-007", "TC-999"],
+      "summary": "Reused reset token was not rejected",
+      "observed_behavior": "The confirm request with an already-used token did not return 400 token_used.",
+      "expected_behavior": "The confirm endpoint rejects a used token with 400 and error 'token_used'; the first new password keeps working.",
+      "suspected_origin": "product_defect",
+      "probable_root_cause": {
+        "description": "Likely a regression of the single-use check: the used flag may not be persisted or checked in the confirm transaction.",
+        "reasoning": "The observed response contradicts the documented contract, and BUG-1042 describes the same symptom.",
+        "likelihood": "likely",
+        "supporting_evidence": [
+          "TC-007:F1",
+          "TC-007:F2",
+          "previous_bugs/BUG-1042-reset-token-reusable.md"
+        ]
+      },
+      "alternative_causes": [
+        {
+          "description": "Possibly test data drift: the fixture token may have been regenerated and never used.",
+          "reasoning": "Staging data is reset nightly.",
+          "likelihood": "possible",
+          "supporting_evidence": ["troubleshooting/api-test-failures.md"]
+        }
+      ],
+      "evidence": [
+        {"reference": "TC-007:F1", "interpretation": "The request did not produce the expected rejection."},
+        {"reference": "TC-007:F2", "interpretation": "Execution details of the failing run."},
+        {"reference": "TC-007:F99", "interpretation": "Server logs show the token check was skipped."},
+        {"reference": "previous_bugs/BUG-1042-reset-token-reusable.md", "interpretation": "Same symptom was fixed before."},
+        {"reference": "previous_bugs/BUG-4242-invented.md", "interpretation": "Another similar bug."}
+      ],
+      "unknowns": [
+        "Server logs for the confirm request are not available",
+        "Whether the fixture token had actually been used before this run"
+      ],
+      "affected_component": "auth: password reset confirm endpoint",
+      "severity_suggestion": "high",
+      "severity_rationale": "A reusable reset token lets anyone holding an old link take over the account.",
+      "reproduction_steps": [
+        "Complete a password reset with a token",
+        "POST /api/v2/password-reset/confirm again with the same token and a new password",
+        "Observe the response"
+      ],
+      "recommended_next_investigation": [
+        "Check whether password_reset_tokens.used_at is set for the fixture token",
+        "Inspect the confirm handler for the used_at check introduced by BUG-1042"
+      ],
+      "confidence": 0.62
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "requests": [
+    {
+      "test_case_id": "TC-001",
+      "method": "POST",
+      "path": "/api/v2/password-reset",
+      "headers": [{"name": "Content-Type", "value": "application/json"}],
+      "query_params": [],
+      "body_json": "{\"email\": \"registered.user@example.com\"}",
+      "expected_status": 202,
+      "validation_rules": [
+        {
+          "type": "json_path_equals",
+          "target": "message",
+          "expected_json": "\"If the email is registered, a reset link has been sent.\""
+        }
+      ],
+      "skip_reason": null
+    },
+    {
+      "test_case_id": "TC-004",
+      "method": "POST",
+      "path": "/api/v2/password-reset",
+      "headers": [],
+      "query_params": [],
+      "body_json": "{\"email\": \"nobody@example.com\"}",
+      "expected_status": 202,
+      "validation_rules": [
+        {
+          "type": "json_path_equals",
+          "target": "message",
+          "expected_json": "\"If the email is registered, a reset link has been sent.\""
+        }
+      ],
+      "skip_reason": null
+    },
+    {
+      "test_case_id": "TC-006",
+      "method": "POST",
+      "path": "/api/v2/password-reset/confirm",
+      "headers": [],
+      "query_params": [],
+      "body_json": null,
+      "expected_status": 400,
+      "validation_rules": [],
+      "skip_reason": "Needs a reset token past its expiry, which a single request cannot create"
+    },
+    {
+      "test_case_id": "TC-007",
+      "method": "POST",
+      "path": "/api/v2/password-reset/confirm",
+      "headers": [],
+      "query_params": [],
+      "body_json": "{\"token\": \"used-token-456\", \"new_password\": \"An0ther-Passw0rd!\"}",
+      "expected_status": 400,
+      "validation_rules": [
+        {"type": "json_path_equals", "target": "error", "expected_json": "\"token_used\""}
+      ],
+      "skip_reason": null
+    },
+    {
+      "test_case_id": "TC-008",
+      "method": "POST",
+      "path": "/api/v2/password-reset",
+      "headers": [],
+      "query_params": [],
+      "body_json": "{\"email\": \"Registered.User@Example.COM\"}",
+      "expected_status": 202,
+      "validation_rules": [
+        {"type": "json_path_type", "target": "message", "expected_json": "\"string\""}
+      ],
+      "skip_reason": null
+    }
+  ]
+}

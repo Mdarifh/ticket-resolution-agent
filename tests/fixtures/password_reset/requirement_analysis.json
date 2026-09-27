@@ -1,0 +1,32 @@
+{
+  "summary": "Registered users can reset a forgotten password by requesting a reset link sent to their registered email address and setting a new password.",
+  "feature": "Password reset",
+  "actors": ["Registered user", "Email service"],
+  "preconditions": ["User has an account with a registered email address"],
+  "acceptance_criteria": [
+    "User can request a password reset by submitting their registered email",
+    "A password reset link is sent to the registered email",
+    "User can set a new password using a valid reset link",
+    "A request for an email that is not registered does not reset any password"
+  ],
+  "business_rules": [
+    "A reset link can be used only once",
+    "A reset link expires after a limited time"
+  ],
+  "data_inputs": ["email", "new password", "reset token"],
+  "edge_cases": [
+    "Email entered with different letter casing",
+    "Expired reset link",
+    "Reset link used a second time"
+  ],
+  "risk_areas": [
+    "Account enumeration through different responses for registered and unregistered emails",
+    "Reset token guessing",
+    "Email delivery failure"
+  ],
+  "ambiguities": [
+    "Reset link expiry duration is not specified",
+    "Password complexity rules are not specified",
+    "Rate limiting of reset requests is not specified"
+  ]
+}

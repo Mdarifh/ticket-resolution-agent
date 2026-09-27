@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QA Agent Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="layout">
+    <aside id="sidebar" class="sidebar">
+      <div class="sidebar-head">
+        <div class="logo"><span class="logo-mark">QA</span><span>QA Agent</span></div>
+        <button id="new-run" class="new-run" type="button">+ New QA run</button>
+      </div>
+      <div class="history-title">Run history</div>
+      <nav id="history" class="history" aria-label="Run history"></nav>
+      <div class="sidebar-foot">
+        <div id="system-status" class="system-status">Connecting…</div>
+        <a href="http://localhost:8501" target="_blank" rel="noopener">Open classic dashboard ↗</a>
+      </div>
+    </aside>
+
+    <main class="chat">
+      <header class="chat-head">
+        <button id="toggle-sidebar" class="icon-btn" type="button" aria-label="Show run history">☰</button>
+        <div class="chat-title">
+          <div id="chat-title">New QA run</div>
+          <div id="chat-subtitle" class="muted">Describe a requirement and the agent will test it</div>
+        </div>
+        <span id="run-badge" class="badge" hidden></span>
+      </header>
+
+      <section id="thread" class="thread" aria-live="polite"></section>
+
+      <form id="composer" class="composer">
+        <div class="composer-box">
+          <textarea id="input" rows="1" placeholder="Describe a requirement to test…" autocomplete="off"></textarea>
+          <button id="send" type="submit" aria-label="Send">➤</button>
+        </div>
+        <label id="pause-option" class="pause-option">
+          <input id="pause" type="checkbox"> Pause before executing tests (review test cases first)
+        </label>
+      </form>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+# AI QA Agent: full local stack.
+#
+#   cp .env.example .env        # then set OPENAI_API_KEY (+ OPENAI_BASE_URL / LLM_MODEL)
+#   docker compose up -d --build
+#
+#   Chat app / API   http://localhost:8000/app/   (API docs: /docs)
+#   Dashboard        http://localhost:8501
+#   Demo Shop (SUT)  http://localhost:8765
+#
+# Secrets stay in .env, which is read at runtime (env_file) and never copied into an
+# image (.dockerignore). Values under `environment:` override .env for the container
+# network (service hostnames instead of localhost). Ports are published on the host's
+# loopback interface only.
+
+name: ai-qa-agent
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: qa-agent-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-qa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-qa}
+      POSTGRES_DB: ${POSTGRES_DB:-qa_agent}
+      # Also created by the init script, for the test suite (TEST_DATABASE_URL).
+      POSTGRES_TEST_DB: ${POSTGRES_TEST_DB:-qa_agent_test}
+    ports:
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - qa-agent-pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  demo:
+    build:
+      context: .
+      target: demo
+    image: ai-qa-agent-demo:latest
+    container_name: qa-agent-demo
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${DEMO_PORT:-8765}:8765"
+    volumes:
+      - qa-agent-demo-data:/app/data
+
+  api:
+    build:
+      context: .
+      target: api
+    image: ai-qa-agent-api:latest
+    container_name: qa-agent-api
+    restart: unless-stopped
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      APP_ENV: ${APP_ENV_DOCKER:-docker}
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-qa}:${POSTGRES_PASSWORD:-qa}@postgres:5432/${POSTGRES_DB:-qa_agent}
+      # The system under test, reached over the compose network.
+      API_TEST_BASE_URL: ${DOCKER_API_TEST_BASE_URL:-http://demo:8765}
+      UI_TEST_BASE_URL: ${DOCKER_UI_TEST_BASE_URL:-http://demo:8765}
+      KNOWLEDGE_BASE_DIR: /app/knowledge_base
+      CHROMA_PERSIST_DIR: /app/data/chroma
+      UI_TEST_SCREENSHOT_DIR: /app/data/screenshots
+      UI_TEST_HEADLESS: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      demo:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${API_PORT:-8000}:8000"
+    volumes:
+      - qa-agent-data:/app/data
+
+  ui:
+    build:
+      context: .
+      target: ui
+    image: ai-qa-agent-ui:latest
+    container_name: qa-agent-ui
+    restart: unless-stopped
+    environment:
+      STREAMLIT_API_BASE_URL: http://api:8000
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${STREAMLIT_PORT:-8501}:8501"
+
+volumes:
+  qa-agent-pgdata:
+  qa-agent-data:
+  qa-agent-demo-data:

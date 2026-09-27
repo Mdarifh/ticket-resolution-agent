@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Shop - Create account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="brand" href="./"><span class="brand-mark">D</span>Demo Shop</a>
+  <main>
+    <h1 data-testid="page-title">Create an account</h1>
+    <p class="muted">Sign up with your email address.</p>
+    <form id="signup-form" data-testid="signup-form" novalidate>
+      <label for="signup-email">Email address</label>
+      <input id="signup-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" data-testid="signup-email">
+      <label for="signup-password">Password</label>
+      <input id="signup-password" name="password" type="password" autocomplete="new-password" data-testid="signup-password">
+      <p class="hint">At least 12 characters, with a letter, a digit and a symbol.</p>
+      <label for="signup-confirm">Confirm password</label>
+      <input id="signup-confirm" name="confirm_password" type="password" autocomplete="new-password" data-testid="signup-confirm">
+      <p id="signup-error" class="error" data-testid="signup-error" role="alert" hidden></p>
+      <button type="submit" data-testid="signup-submit">Create account</button>
+    </form>
+    <div class="links"><a href="login.html" data-testid="link-login">Already have an account? Log in</a></div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

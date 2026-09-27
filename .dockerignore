@@ -1,0 +1,49 @@
+# Keep secrets, local state and dev tooling out of the build context and images.
+
+# Secrets: .env is passed at runtime by docker compose, never baked into an image
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Local state (databases, vector index, screenshots) lives in Docker volumes
+data/
+.local/
+logs/
+*.db
+*.sqlite
+*.sqlite3
+
+# Python / tooling
+.venv/
+venv/
+**/__pycache__/
+**/*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Tests are not part of the runtime images
+tests/
+pytest.ini
+test-results/
+playwright-report/
+
+# VCS / IDE / OS
+.git/
+.gitignore
+.vscode/
+.idea/
+.claude/
+.DS_Store
+Thumbs.db
+*.log
+
+# Docker files themselves
+Dockerfile
+docker-compose*.yml
+.dockerignore

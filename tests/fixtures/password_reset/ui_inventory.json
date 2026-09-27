@@ -1,0 +1,175 @@
+[
+  {
+    "path": "/",
+    "title": "Demo Shop - Account",
+    "elements": [
+      {
+        "tag": "h1",
+        "test_id": "page-title",
+        "text": "Demo Shop account"
+      },
+      {
+        "tag": "a",
+        "test_id": "nav-login",
+        "text": "Log in",
+        "href": "login.html"
+      },
+      {
+        "tag": "a",
+        "test_id": "nav-forgot-password",
+        "text": "Forgot password?",
+        "href": "forgot-password.html"
+      },
+      {
+        "tag": "a",
+        "test_id": "nav-demo-reset-link",
+        "text": "Open a demo reset link",
+        "href": "reset-password.html?token=valid-token-123"
+      }
+    ]
+  },
+  {
+    "path": "/login.html",
+    "title": "Demo Shop - Log in",
+    "elements": [
+      {
+        "tag": "h1",
+        "test_id": "page-title",
+        "text": "Log in"
+      },
+      {
+        "tag": "form",
+        "test_id": "login-form",
+        "id": "login-form",
+        "text": "Email address Password Log in"
+      },
+      {
+        "tag": "input",
+        "type": "email",
+        "test_id": "login-email",
+        "id": "login-email",
+        "name": "email",
+        "label": "Email address"
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "test_id": "login-password",
+        "id": "login-password",
+        "name": "password",
+        "label": "Password"
+      },
+      {
+        "tag": "button",
+        "type": "submit",
+        "test_id": "login-submit",
+        "text": "Log in"
+      },
+      {
+        "tag": "a",
+        "test_id": "link-forgot-password",
+        "text": "Forgot password?",
+        "href": "forgot-password.html"
+      }
+    ]
+  },
+  {
+    "path": "/forgot-password.html",
+    "title": "Demo Shop - Forgot password",
+    "elements": [
+      {
+        "tag": "select",
+        "test_id": "language-select",
+        "id": "language",
+        "name": "language",
+        "label": "Language",
+        "options": [
+          "en: English",
+          "es: Español"
+        ]
+      },
+      {
+        "tag": "h1",
+        "test_id": "page-title",
+        "text": "Forgot your password?"
+      },
+      {
+        "tag": "p",
+        "test_id": "instructions",
+        "text": "Enter your registered email address and we will send you a reset link."
+      },
+      {
+        "tag": "form",
+        "test_id": "forgot-form",
+        "id": "forgot-form",
+        "text": "Email address Send reset link"
+      },
+      {
+        "tag": "input",
+        "type": "email",
+        "test_id": "email-input",
+        "id": "email",
+        "name": "email",
+        "label": "Email address",
+        "placeholder": "you@example.com"
+      },
+      {
+        "tag": "button",
+        "type": "submit",
+        "test_id": "send-reset-link",
+        "text": "Send reset link"
+      },
+      {
+        "tag": "a",
+        "test_id": "link-back-to-login",
+        "text": "Back to log in",
+        "href": "login.html"
+      },
+      {
+        "tag": "a",
+        "test_id": "external-help",
+        "text": "Password help (external)",
+        "href": "https://docs.example.com/password-help"
+      }
+    ]
+  },
+  {
+    "path": "/reset-password.html?token=valid-token-123",
+    "title": "Demo Shop - Reset password",
+    "elements": [
+      {
+        "tag": "h1",
+        "test_id": "page-title",
+        "text": "Choose a new password"
+      },
+      {
+        "tag": "form",
+        "test_id": "reset-form",
+        "id": "reset-form",
+        "text": "New password Confirm new password Reset password"
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "test_id": "new-password",
+        "id": "new-password",
+        "name": "new_password",
+        "label": "New password"
+      },
+      {
+        "tag": "input",
+        "type": "password",
+        "test_id": "confirm-password",
+        "id": "confirm-password",
+        "name": "confirm_password",
+        "label": "Confirm new password"
+      },
+      {
+        "tag": "button",
+        "type": "submit",
+        "test_id": "reset-submit",
+        "text": "Reset password"
+      }
+    ]
+  }
+]

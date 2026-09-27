@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Shop - Demo inbox</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="brand" href="./"><span class="brand-mark">D</span>Demo Shop</a>
+  <main>
+    <h1 data-testid="page-title">Demo inbox</h1>
+    <p class="muted">The demo sends no real email. Password reset emails appear here instead.</p>
+    <form id="outbox-form" data-testid="outbox-form" novalidate>
+      <label for="outbox-email">Email address</label>
+      <input id="outbox-email" name="email" type="email" placeholder="you@example.com" data-testid="outbox-email">
+      <button type="submit" data-testid="outbox-submit">Show emails</button>
+    </form>
+    <p id="outbox-empty" class="muted" data-testid="outbox-empty" hidden>No emails for this address yet.</p>
+    <ul id="outbox-list" class="mail" data-testid="outbox-list"></ul>
+    <a href="login.html" data-testid="link-back-to-login">Back to log in</a>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

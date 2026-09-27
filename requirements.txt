@@ -1,0 +1,32 @@
+# Pins bumped for Python 3.14 wheel availability (older pydantic-core has none).
+
+fastapi==0.141.1
+uvicorn[standard]==0.54.0
+pydantic==2.13.5
+pydantic-settings==2.15.0
+python-dotenv==1.2.3
+streamlit==1.64.0
+httpx==0.28.1
+
+# Phase 3: workflow orchestration
+langgraph==1.2.12
+
+# Phase 4: LLM chains with structured output
+langchain-core==1.6.5
+langchain-openai==1.6.6
+
+# Phase 5: RAG (langchain-community is deliberately not used: it is being sunset)
+langchain-text-splitters==1.1.2
+langchain-chroma==1.1.0
+chromadb==1.5.9
+PyYAML==6.0.3
+
+# Phase 7: UI testing (then run: python -m playwright install chromium)
+playwright==1.63.0
+
+# Phase 11: PostgreSQL persistence
+SQLAlchemy==2.1.1
+alembic==1.20.0
+psycopg[binary]==3.3.6
+
+pytest==9.1.1

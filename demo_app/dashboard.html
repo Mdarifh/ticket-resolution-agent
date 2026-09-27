@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Shop - My account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="brand" href="./"><span class="brand-mark">D</span>Demo Shop</a>
+  <main>
+    <h1 data-testid="page-title">My account</h1>
+    <div id="dashboard-content" hidden>
+      <p id="login-message" data-testid="login-message" class="success" role="status">Welcome back!</p>
+      <div class="account">
+        <span class="avatar" id="account-initial" aria-hidden="true"></span>
+        <div>Signed in as<br><strong id="user-email" data-testid="user-email"></strong></div>
+      </div>
+      <button type="button" id="logout" class="secondary" data-testid="logout">Log out</button>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

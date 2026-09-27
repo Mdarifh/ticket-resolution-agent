@@ -1,0 +1,41 @@
+# Virtual environment
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environment (secrets): only the template is committed
+.env
+.env.*
+!.env.example
+
+# Data / vector store / DB
+data/chroma/*
+!data/chroma/.gitkeep
+data/*.db
+data/screenshots/
+*.sqlite
+*.sqlite3
+
+# Local (non-Docker) runtime: portable PostgreSQL, its data, process ids, logs
+.local/
+logs/
+
+# Playwright
+test-results/
+playwright-report/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

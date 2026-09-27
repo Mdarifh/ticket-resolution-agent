@@ -1,0 +1,85 @@
+/* Demo Shop: small, dependency-free styling shared by every page. */
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --text: #1f2328;
+  --muted: #5b6472;
+  --border: #d6dbe4;
+  --primary: #3b5bdb;
+  --primary-hover: #2f4ac0;
+  --error: #b42318;
+  --error-bg: #fef3f2;
+  --success: #067647;
+  --success-bg: #ecfdf3;
+  --radius: 12px;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem 1rem 3rem;
+}
+.brand {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-weight: 700; font-size: 1.15rem; color: var(--text); text-decoration: none;
+  margin: 1rem 0 1.5rem;
+}
+.brand-mark {
+  display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 8px;
+  background: var(--primary); color: #fff; font-size: 1rem;
+}
+header {
+  width: 100%; max-width: 26rem; display: flex; justify-content: flex-end; align-items: center;
+  gap: 0.5rem; font-size: 0.9rem; color: var(--muted);
+}
+header select { width: auto; padding: 0.3rem 0.5rem; }
+main {
+  width: 100%; max-width: 26rem; background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2rem; box-shadow: 0 8px 24px rgb(31 35 40 / 6%);
+}
+h1 { margin: 0 0 0.5rem; font-size: 1.5rem; }
+p { line-height: 1.5; }
+.muted, [data-testid=instructions] { color: var(--muted); margin-top: 0; }
+form { display: grid; gap: 0.45rem; margin-block: 1.25rem 1rem; }
+label { font-size: 0.9rem; font-weight: 600; margin-top: 0.4rem; }
+input, select, button { font: inherit; }
+input, select {
+  width: 100%; padding: 0.6rem 0.75rem; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; color: var(--text);
+}
+input:focus, select:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: var(--primary); }
+button {
+  margin-top: 0.9rem; padding: 0.65rem 1rem; border: 0; border-radius: 8px; cursor: pointer;
+  background: var(--primary); color: #fff; font-weight: 600;
+}
+button:hover { background: var(--primary-hover); }
+button:disabled { opacity: 0.6; cursor: wait; }
+button.secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+button.secondary:hover { background: var(--bg); }
+a { color: var(--primary); }
+nav a, main > a { display: block; margin-block: 0.4rem; }
+.links { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; font-size: 0.92rem; }
+.links a { display: inline; margin: 0; }
+.error, .success, .notice { padding: 0.6rem 0.75rem; border-radius: 8px; margin: 0.5rem 0; font-size: 0.93rem; }
+.error { color: var(--error); background: var(--error-bg); }
+.success { color: var(--success); background: var(--success-bg); }
+.notice { color: var(--primary); background: #edf2ff; }
+[hidden] { display: none !important; }
+.hint { font-size: 0.82rem; color: var(--muted); margin: 0; }
+.account { display: flex; align-items: center; gap: 0.9rem; margin: 1.25rem 0; }
+.avatar {
+  display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%;
+  background: #edf2ff; color: var(--primary); font-weight: 700; font-size: 1.2rem;
+}
+.demo-box {
+  margin-top: 1.5rem; padding: 0.9rem; border: 1px dashed var(--border); border-radius: 8px;
+  font-size: 0.88rem; color: var(--muted);
+}
+.demo-box code { color: var(--text); }
+ul.mail { padding-left: 1.1rem; }

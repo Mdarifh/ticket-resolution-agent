@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo Shop - Account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="brand" href="./"><span class="brand-mark">D</span>Demo Shop</a>
+  <main>
+    <h1 data-testid="page-title">Demo Shop account</h1>
+    <p class="muted">Local demo application for UI and API test development. Accounts are served by the demo auth API.</p>
+    <nav>
+      <a href="login.html" data-testid="nav-login">Log in</a>
+      <a href="signup.html" data-testid="nav-signup">Create an account</a>
+      <a href="forgot-password.html" data-testid="nav-forgot-password">Forgot password?</a>
+      <a href="outbox.html" data-testid="nav-outbox">Demo inbox (reset emails)</a>
+      <!-- Normally reached from the reset email; linked here so the demo is discoverable. -->
+      <a href="reset-password.html?token=valid-token-123" data-testid="nav-demo-reset-link">Open a demo reset link</a>
+    </nav>
+  </main>
+</body>
+</html>
